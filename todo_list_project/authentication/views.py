@@ -1,4 +1,7 @@
-from django.shortcuts import render
+import logging
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.urls import reverse_lazy
 import logging
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
