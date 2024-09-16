@@ -8,6 +8,11 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+###
+.idea/misc.xml
+.idea/vcs.xml
+### inspectionProfiles
+.idea/inspectionProfiles
 
 # AWS User-specific
 .idea/**/aws.xml
