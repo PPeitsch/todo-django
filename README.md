@@ -1,37 +1,98 @@
-# Invera ToDo-List Challenge (Python/Django Jr-SSr)
+# Django ToDo List App
 
-El propósito de esta prueba es conocer tu capacidad para crear una pequeña aplicación funcional en un límite de tiempo. A continuación, encontrarás las funciones, los requisitos y los puntos clave que debés tener en cuenta durante el desarrollo.
+## Descripción
+Django ToDo List App es una aplicación web robusta y eficiente para la gestión de tareas personales. Desarrollada utilizando Django 5.1, esta aplicación demuestra las mejores prácticas en el desarrollo de aplicaciones web con Python y Django.
 
-## Qué queremos que hagas:
+## Características Principales
+- Autenticación de usuarios (registro, inicio de sesión, cierre de sesión)
+- CRUD completo para tareas (Crear, Leer, Actualizar, Eliminar)
+- Marcado de tareas como completadas
+- Búsqueda y filtrado de tareas por contenido
+- Interfaz de usuario minimalista y funcional
+- Manejo de logs para seguimiento de acciones
 
-- El Challenge consiste en crear una aplicación web sencilla que permita a los usuarios crear y mantener una lista de tareas.
-- La entrega del resultado será en un nuevo fork de este repo y deberás hacer una pequeña demo del funcionamiento y desarrollo del proyecto ante un super comité de las más grandes mentes maestras de Invera, o a un par de devs, lo que sea más fácil de conseguir.
-- Podes contactarnos en caso que tengas alguna consulta.
+## Estructura del Proyecto
+```
+todo-django/
+├── authentication/
+│   ├── templates/
+│   │   └── authentication/
+│   │       ├── login.html
+│   │       └── signup.html
+├── tasks/
+│   ├── templates/
+│   │   └── tasks/
+│   │       ├── home.html
+│   │       ├── tasks_list.html
+│   │       ├── tasks_form.html
+│   │       └── tasks_confirm_delete.html
+├── todo_list_project/
+├── templates/
+│   └── base.html
+├── manage.py
+├── requirements.txt
+└── README.md
+```
 
-## Objetivos:
+## Requisitos
+- Python 3.9+
+- Django 5.1
+- Otras dependencias listadas en `requirements.txt`
 
-El usuario de la aplicación tiene que ser capaz de:
+## Configuración y Ejecución
 
-- Autenticarse
-- Crear una tarea
-- Eliminar una tarea
-- Marcar tareas como completadas
-- Poder ver una lista de todas las tareas existentes
-- Filtrar/buscar tareas por fecha de creación y/o por el contenido de la misma
+1. Clonar el repositorio:
+   ```
+   git clone https://github.com/PPeitsch/todo-django.git
+   cd todo-django
+   ```
 
-## Qué evaluamos:
+2. Crear y activar un entorno virtual:
+   ```
+   python -m venv venv
+   source venv/bin/activate  # En Windows: venv\Scripts\activate
+   ```
 
-- Desarrollo utilizando Python, Django. No es necesario crear un Front-End, pero sí es necesario tener una API que permita cumplir con los objetivos de arriba.
-- Uso de librerías y paquetes estandares que reduzcan la cantidad de código propio añadido.
-- Calidad y arquitectura de código. Facilidad de lectura y mantenimiento del código. Estándares seguidos.
-- [Bonus] Manejo de logs.
-- [Bonus] Creación de tests (unitarias y de integración)
-- [Bonus] Unificar la solución propuesta en una imagen de Docker por repositorio para poder ser ejecutada en cualquier ambiente (si aplica para full stack).
+3. Instalar las dependencias:
+   ```
+   pip install -r requirements.txt
+   ```
 
-## Requerimientos de entrega:
+4. Aplicar las migraciones:
+   ```
+   python manage.py migrate
+   ```
 
-- Hacer un fork del proyecto y pushearlo en github. Puede ser privado.
-- La solución debe correr correctamente.
-- El Readme debe contener todas las instrucciones para poder levantar la aplicación, en caso de ser necesario, y explicar cómo se usa.
-- Disponibilidad para realizar una pequeña demo del proyecto al finalizar el challenge.
-- Tiempo para la entrega: Aproximadamente 7 días.
+5. Crear un superusuario (opcional):
+   ```
+   python manage.py createsuperuser
+   ```
+
+6. Ejecutar el servidor de desarrollo:
+   ```
+   python manage.py runserver
+   ```
+
+7. Acceder a la aplicación en `http://localhost:8000`
+
+## Uso
+- Regístrate como nuevo usuario o inicia sesión si ya tienes una cuenta.
+- En la página principal, podrás ver tu lista de tareas.
+- Usa el botón "Add New Task" para crear una nueva tarea.
+- Puedes editar, eliminar o marcar como completada cada tarea desde la lista.
+- Utiliza la barra de búsqueda para filtrar tareas por título o descripción.
+
+## Pruebas
+Para ejecutar las pruebas unitarias y de integración:
+```
+python manage.py test
+```
+
+## Contribuciones
+Las contribuciones son bienvenidas. Por favor, asegúrese de seguir las convenciones de codificación de PEP 8 y las mejores prácticas de Django.
+
+## Licencia
+Este proyecto está licenciado bajo la Licencia MIT. Consulte el archivo `LICENSE` para más detalles.
+
+## Contacto
+Para cualquier pregunta o sugerencia, por favor abra un issue en este repositorio.
