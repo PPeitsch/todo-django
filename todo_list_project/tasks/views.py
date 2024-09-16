@@ -18,7 +18,7 @@ def task_list(request):
         tasks = tasks.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
-    return render(request, 'tasks/task_list.html', {'tasks': tasks})
+    return render(request, 'tasks/tasks_list.html', {'tasks': tasks})
 
 
 @login_required
@@ -33,7 +33,7 @@ def task_create(request):
             return redirect('task_list')
     else:
         form = TaskForm()
-    return render(request, 'tasks/task_form.html', {'form': form})
+    return render(request, 'tasks/tasks_form.html', {'form': form})
 
 
 @login_required
@@ -47,7 +47,7 @@ def task_update(request, pk):
             return redirect('task_list')
     else:
         form = TaskForm(instance=task)
-    return render(request, 'tasks/task_form.html', {'form': form})
+    return render(request, 'tasks/tasks_form.html', {'form': form})
 
 
 @login_required
@@ -57,7 +57,7 @@ def task_delete(request, pk):
         task.delete()
         messages.success(request, 'Task deleted successfully.')
         return redirect('task_list')
-    return render(request, 'tasks/task_confirm_delete.html', {'task': task})
+    return render(request, 'tasks/tasks_confirm_delete.html', {'task': task})
 
 
 @login_required
