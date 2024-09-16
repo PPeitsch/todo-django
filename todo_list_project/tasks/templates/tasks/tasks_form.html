@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{% if form.instance.pk %}Edit Task{% else %}Create Task{% endif %}{% endblock %}
+{% block title %}{% if form.instance.pk %}Editar Tarea{% else %}Crear Tarea{% endif %}{% endblock %}
 
 {% block content %}
-<h1>{% if form.instance.pk %}Edit Task{% else %}Create Task{% endif %}</h1>
+<h1>{% if form.instance.pk %}Editar Tarea{% else %}Crear Tarea{% endif %}</h1>
 <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -18,7 +18,7 @@
             {% endfor %}
         </div>
     {% endfor %}
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancelar</a>
 </form>
 {% endblock %}

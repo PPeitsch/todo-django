@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Welcome to ToDo List App{% endblock %}
+{% block title %}App Lista de Tareas{% endblock %}
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">Welcome to ToDo List App</h1>
-    <p class="lead">Organize your tasks and boost your productivity.</p>
+    <h1 class="display-4">App Lista de Tareas</h1>
+    <p class="lead">Organiza tus tareas y aumenta tu productividad.</p>
     <hr class="my-4">
     {% if user.is_authenticated %}
-        <p>Start managing your tasks now!</p>
-        <a class="btn btn-primary btn-lg" href="{% url 'task_list' %}" role="button">View My Tasks</a>
+        <p>¡Empezá a gestionar tus tareas ahora!</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'task_list' %}" role="button">Ver Mis Tareas</a>
     {% else %}
-        <p>Join us to start organizing your tasks.</p>
-        <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up</a>
-        <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Log In</a>
+        <p>Registrate para empezar a organizar tus tareas.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Registrarse</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Iniciar Sesión</a>
     {% endif %}
 </div>
 {% endblock %}

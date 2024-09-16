@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}My Tasks{% endblock %}
+{% block title %}Mis Tareas{% endblock %}
 
 {% block content %}
-<h1>My Tasks</h1>
-<a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Add New Task</a>
+<h1>Mis Tareas</h1>
+<a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Añadir Nueva Tarea</a>
 
 <form method="get" class="mb-3">
     <div class="input-group">
-        <input type="text" name="query" class="form-control" placeholder="Search tasks..." value="{{ request.GET.query }}">
-        <button type="submit" class="btn btn-outline-secondary">Search</button>
+        <input type="text" name="query" class="form-control" placeholder="Buscar tareas..." value="{{ request.GET.query }}">
+        <button type="submit" class="btn btn-outline-secondary">Buscar</button>
     </div>
 </form>
 
@@ -21,15 +21,15 @@
                 <div>
                     <h5 class="mb-1">{{ task.title }}</h5>
                     <p class="mb-1">{{ task.description }}</p>
-                    <small>Created: {{ task.created_at|date:"M d, Y" }}</small>
+                    <small>Creada: {{ task.created_at|date:"d M, Y" }}</small>
                 </div>
                 <div>
-                    <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
-                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                    <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
                     <form action="{% url 'task_toggle_complete' task.pk %}" method="post" class="d-inline">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-sm btn-outline-success">
-                            {% if task.completed %}Mark Incomplete{% else %}Mark Complete{% endif %}
+                            {% if task.completed %}Marcar como Incompleta{% else %}Marcar como Completa{% endif %}
                         </button>
                     </form>
                 </div>
@@ -38,6 +38,6 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No tasks found.</p>
+    <p>No se encontraron tareas.</p>
 {% endif %}
 {% endblock %}

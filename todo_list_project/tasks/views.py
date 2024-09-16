@@ -29,7 +29,7 @@ def task_create(request):
             task = form.save(commit=False)
             task.user = request.user
             task.save()
-            messages.success(request, 'Task created successfully.')
+            messages.success(request, 'La tarea fue creada exitosamente.')
             return redirect('task_list')
     else:
         form = TaskForm()
@@ -43,7 +43,7 @@ def task_update(request, pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Task updated successfully.')
+            messages.success(request, 'La tarea fue actualizada exitosamente.')
             return redirect('task_list')
     else:
         form = TaskForm(instance=task)
@@ -55,7 +55,7 @@ def task_delete(request, pk):
     task = get_object_or_404(Task, pk=pk, user=request.user)
     if request.method == 'POST':
         task.delete()
-        messages.success(request, 'Task deleted successfully.')
+        messages.success(request, 'La tarea fue eliminada exitosamente.')
         return redirect('task_list')
     return render(request, 'tasks/tasks_confirm_delete.html', {'task': task})
 
