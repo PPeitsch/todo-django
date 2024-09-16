@@ -56,7 +56,7 @@ def task_delete(request, pk):
     if request.method == 'POST':
         task.delete()
         messages.success(request, 'Task deleted successfully.')
-        return redirect('task_list')
+        return redirect('tasks_list')
     return render(request, 'tasks/tasks_confirm_delete.html', {'task': task})
 
 
@@ -65,4 +65,4 @@ def task_toggle_complete(request, pk):
     task = get_object_or_404(Task, pk=pk, user=request.user)
     task.completed = not task.completed
     task.save()
-    return redirect('task_list')
+    return redirect('tasks_list')
