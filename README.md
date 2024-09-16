@@ -1,7 +1,7 @@
 # Django ToDo List App
 
 ## Descripción
-Django ToDo List App es una aplicación web robusta y eficiente para la gestión de tareas personales. Desarrollada utilizando Django 5.1, esta aplicación demuestra las mejores prácticas en el desarrollo de aplicaciones web con Python y Django.
+Django ToDo List App es una aplicación web para la gestión de tareas personales.
 
 ## Características Principales
 - Autenticación de usuarios (registro, inicio de sesión, cierre de sesión)
@@ -9,7 +9,12 @@ Django ToDo List App es una aplicación web robusta y eficiente para la gestión
 - Marcado de tareas como completadas
 - Búsqueda y filtrado de tareas por contenido
 - Interfaz de usuario minimalista y funcional
-- Manejo de logs para seguimiento de acciones
+- Manejo de logs para seguimiento de acciones (pendiente)
+
+## Pendiente de implementación
+- Manejo de logs para seguimiento de acciones.
+- Tests unitarios y de integración.
+- Imagen de Docker.
 
 ## Estructura del Proyecto
 ```
@@ -78,7 +83,7 @@ todo-django/
 ## Uso
 - Regístrate como nuevo usuario o inicia sesión si ya tienes una cuenta.
 - En la página principal, podrás ver tu lista de tareas.
-- Usa el botón "Add New Task" para crear una nueva tarea.
+- Usa el botón "Añadir Nueva Tarea" para crear una nueva tarea.
 - Puedes editar, eliminar o marcar como completada cada tarea desde la lista.
 - Utiliza la barra de búsqueda para filtrar tareas por título o descripción.
 
