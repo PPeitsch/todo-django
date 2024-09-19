@@ -132,7 +132,7 @@ LOGIN_REDIRECT_URL = 'task_list'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login'
 
-# Ñogging config
+# Logging config
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
