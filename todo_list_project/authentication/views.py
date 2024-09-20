@@ -7,6 +7,7 @@ from django.views import View
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,7 @@ class SignUpView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)
-        logger.info(f"New user created: {self.object.username}")
+        logger.info(_("New user created: %(username)s") % {'username': self.object.username})
         return response
 
 
@@ -29,14 +30,14 @@ class CustomLoginView(LoginView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        logger.info(f"User logged in: {self.request.user.username}")
+        logger.info(_("User logged in: %(username)s") % {'username': self.request.user.username})
         return response
 
 
 class CustomLogoutView(View):
     def get(self, request):
         logout(request)
-        messages.success(request, "You have been successfully logged out.")
+        messages.success(request, _("You have been successfully logged out."))
         return redirect('home')
 
     def post(self, request):

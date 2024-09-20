@@ -13,7 +13,7 @@
         <a class="btn btn-primary btn-lg" href="{% url 'task_list' %}" role="button">{% trans "View My Tasks" %}</a>
     {% else %}
         <p>{% trans "Register to start organizing your tasks." %}</p>
-        <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">{% trans "Register" %}</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">{% trans "Sign Up" %}</a>
         <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">{% trans "Log In" %}</a>
     {% endif %}
 </div>

@@ -81,14 +81,6 @@ msgstr "Ver Mis Tareas"
 msgid "Register to start organizing your tasks."
 msgstr "Regístrate para empezar a organizar tus tareas."
 
-#: .\tasks\templates\tasks\home.html:16
-msgid "Register"
-msgstr "Registrarse"
-
-#: .\tasks\templates\tasks\home.html:17
-msgid "Log In"
-msgstr "Iniciar Sesión"
-
 #: .\tasks\templates\tasks\tasks_confirm_delete.html:4
 #: .\tasks\templates\tasks\tasks_confirm_delete.html:7
 msgid "Delete Task"
@@ -242,3 +234,40 @@ msgstr "Inglés"
 #: .\todo_list_project\settings.py:113
 msgid "Spanish"
 msgstr "Español"
+
+#: .\authentication\views.py:21
+#, python-format
+msgid "New user created: %(username)s"
+msgstr "Nuevo usuario creado: %(username)s"
+
+#: .\authentication\views.py:30
+#, python-format
+msgid "User logged in: %(username)s"
+msgstr "Usuario ha iniciado sesión: %(username)s"
+
+#: .\authentication\views.py:36
+msgid "You have been successfully logged out."
+msgstr "Has cerrado sesión exitosamente."
+
+#: .\tasks\templates\tasks\home.html:17
+#: .\authentication\templates\authentication\login.html:4
+#: .\authentication\templates\authentication\login.html:9
+#: .\authentication\templates\authentication\login.html:25
+msgid "Log In"
+msgstr "Iniciar Sesión"
+
+#: .\authentication\templates\authentication\login.html:26
+msgid "Don't have an account?"
+msgstr "¿No tienes una cuenta?"
+
+#: .\tasks\templates\tasks\home.html:16
+#: .\authentication\templates\authentication\login.html:26
+#: .\authentication\templates\authentication\signup.html:4
+#: .\authentication\templates\authentication\signup.html:9
+#: .\authentication\templates\authentication\signup.html:25
+msgid "Sign Up"
+msgstr "Registrarse"
+
+#: .\authentication\templates\authentication\signup.html:26
+msgid "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
