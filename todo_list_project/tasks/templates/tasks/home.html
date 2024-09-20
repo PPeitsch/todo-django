@@ -1,19 +1,20 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}App Lista de Tareas{% endblock %}
+{% block title %}{% trans "Task List App" %}{% endblock %}
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">App Lista de Tareas</h1>
-    <p class="lead">Organiza tus tareas y aumenta tu productividad.</p>
+    <h1 class="display-4">{% trans "Task List App" %}</h1>
+    <p class="lead">{% trans "Organize your tasks and increase your productivity." %}</p>
     <hr class="my-4">
     {% if user.is_authenticated %}
-        <p>¡Empezá a gestionar tus tareas ahora!</p>
-        <a class="btn btn-primary btn-lg" href="{% url 'task_list' %}" role="button">Ver Mis Tareas</a>
+        <p>{% trans "Start managing your tasks now!" %}</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'task_list' %}" role="button">{% trans "View My Tasks" %}</a>
     {% else %}
-        <p>Registrate para empezar a organizar tus tareas.</p>
-        <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Registrarse</a>
-        <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Iniciar Sesión</a>
+        <p>{% trans "Register to start organizing your tasks." %}</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">{% trans "Register" %}</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">{% trans "Log In" %}</a>
     {% endif %}
 </div>
 {% endblock %}

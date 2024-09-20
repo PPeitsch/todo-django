@@ -1,15 +1,20 @@
 {% extends "base.html" %}
-
-{% block title %}Mis Tareas{% endblock %}
-
+{% load i18n %}
+{% block title %}{% trans "My Tasks" %}{% endblock %}
 {% block content %}
-<h1>Mis Tareas</h1>
-<a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Añadir Nueva Tarea</a>
 
-<form method="get" class="mb-3">
-    <div class="input-group">
-        <input type="text" name="query" class="form-control" placeholder="Buscar tareas..." value="{{ request.GET.query }}">
-        <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+<h1>{% trans "My Tasks" %}</h1>
+
+<a href="{% url 'task_create' %}" class="btn btn-primary mb-3">{% trans "Add New Task" %}</a>
+
+<form method="get" action="{% url 'task_list' %}">
+    <div class="input-group mb-3">
+        <input type="text" name="query" class="form-control" placeholder="{% trans 'Search' %}">
+        <input type="date" name="date_from" class="form-control" placeholder="{% trans 'Date from' %}">
+        <input type="date" name="date_to" class="form-control" placeholder="{% trans 'Date to' %}">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary">{% trans "Search" %}</button>
+        </div>
     </div>
 </form>
 
@@ -20,16 +25,16 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h5 class="mb-1">{{ task.title }}</h5>
-                    <p class="mb-1">{{ task.description }}</p>
-                    <small>Creada: {{ task.created_at|date:"d M, Y" }}</small>
+                    <p>{{ task.description }}</p>
+                    <small>{% blocktrans with created_date=task.created_at|date:"d M, Y" %}Created: {{ created_date }}{% endblocktrans %}</small>
                 </div>
                 <div>
-                    <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
-                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
-                    <form action="{% url 'task_toggle_complete' task.pk %}" method="post" class="d-inline">
+                    <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-outline-primary">{% trans "Edit" %}</a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-outline-danger">{% trans "Delete" %}</a>
+                    <form method="post" action="{% url 'task_toggle_complete' task.pk %}" style="display: inline;">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-outline-success">
-                            {% if task.completed %}Marcar como Incompleta{% else %}Marcar como Completa{% endif %}
+                        <button type="submit" class="btn btn-sm {% if task.completed %}btn-success{% else %}btn-outline-secondary{% endif %}">
+                            {% if task.completed %}{% trans "Mark as Incomplete" %}{% else %}{% trans "Mark as Complete" %}{% endif %}
                         </button>
                     </form>
                 </div>
@@ -38,6 +43,6 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No se encontraron tareas.</p>
+    <p>{% trans "No tasks found." %}</p>
 {% endif %}
 {% endblock %}
