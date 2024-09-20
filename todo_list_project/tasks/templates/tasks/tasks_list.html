@@ -26,7 +26,9 @@
                 <div>
                     <h5 class="mb-1">{{ task.title }}</h5>
                     <p>{{ task.description }}</p>
-                    <small>{% blocktrans with created_date=task.created_at|date:"d M, Y" %}Created: {{ created_date }}{% endblocktrans %}</small>
+                    <small>{% blocktrans with created_date=task.created_at|date:"d M, Y H:i" %}Created: {{ created_date }}{% endblocktrans %}</small>
+                    <br>
+                    <small>{% blocktrans with updated_date=task.updated_at|date:"d M, Y H:i" %}Last modified: {{ updated_date }}{% endblocktrans %}</small>
                 </div>
                 <div>
                     <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-outline-primary">{% trans "Edit" %}</a>

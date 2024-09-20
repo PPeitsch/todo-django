@@ -91,4 +91,5 @@ def task_toggle_complete(request, pk):
     status = _('completed') if task.completed else _('incomplete')
     logger.info(_("User %(user)s marked task: %(task)s as %(status)s") % {'user': request.user, 'task': task.title,
                                                                           'status': status})
+    messages.success(request, _('Task "%(task)s" was marked as %(status)s.') % {'task': task.title, 'status': status})
     return redirect('task_list')

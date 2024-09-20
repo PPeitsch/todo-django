@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-20 19:51-0300\n"
+"POT-Creation-Date: 2024-09-20 20:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\tasks\forms.py:14
 msgid "Title"
@@ -151,6 +149,11 @@ msgstr "Fecha hasta"
 msgid "Created: %(created_date)s"
 msgstr "Creada: %(created_date)s"
 
+#: .\tasks\templates\tasks\tasks_list.html:31
+#, python-format
+msgid "Last modified: %(updated_date)s"
+msgstr "Última modificación: %(updated_date)s"
+
 #: .\tasks\templates\tasks\tasks_list.html:32
 msgid "Edit"
 msgstr "Editar"
@@ -226,6 +229,11 @@ msgstr "incompleta"
 #, python-format
 msgid "User %(user)s marked task: %(task)s as %(status)s"
 msgstr "El usuario %(user)s marcó la tarea: %(task)s como %(status)s"
+
+#: .\tasks\views.py:93
+#, python-format
+msgid "Task \"%(task)s\" was marked as %(status)s."
+msgstr "La tarea \"%(task)s\" fue marcada como %(status)s."
 
 #: .\todo_list_project\settings.py:112
 msgid "English"
