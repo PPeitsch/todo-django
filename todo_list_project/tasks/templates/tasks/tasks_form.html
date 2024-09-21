@@ -1,9 +1,22 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}{% if form.instance.pk %}Editar Tarea{% else %}Crear Tarea{% endif %}{% endblock %}
+{% block title %}
+    {% if form.instance.pk %}
+        {% trans "Edit Task" %}
+    {% else %}
+        {% trans "Create Task" %}
+    {% endif %}
+{% endblock %}
 
 {% block content %}
-<h1>{% if form.instance.pk %}Editar Tarea{% else %}Crear Tarea{% endif %}</h1>
+<h1>
+    {% if form.instance.pk %}
+        {% trans "Edit Task" %}
+    {% else %}
+        {% trans "Create Task" %}
+    {% endif %}
+</h1>
 <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -11,14 +24,16 @@
             {{ field.label_tag }}
             {{ field }}
             {% if field.help_text %}
-                <small class="form-text text-muted">{{ field.help_text }}</small>
+                <small class="text-muted">{{ field.help_text }}</small>
             {% endif %}
             {% for error in field.errors %}
-                <div class="invalid-feedback d-block">{{ error }}</div>
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
             {% endfor %}
         </div>
     {% endfor %}
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+    <a href="{% url 'task_list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 </form>
 {% endblock %}

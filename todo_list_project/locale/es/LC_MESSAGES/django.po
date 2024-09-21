@@ -1,0 +1,283 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-20 20:30-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\tasks\forms.py:14
+msgid "Title"
+msgstr "Título"
+
+#: .\tasks\forms.py:15
+msgid "Description"
+msgstr "Descripción"
+
+#: .\tasks\forms.py:16
+msgid "Completed"
+msgstr "Completada"
+
+#: .\tasks\models.py:7
+msgid "title"
+msgstr "título"
+
+#: .\tasks\models.py:8
+msgid "description"
+msgstr "descripción"
+
+#: .\tasks\models.py:9 .\tasks\views.py:91
+msgid "completed"
+msgstr "completada"
+
+#: .\tasks\models.py:10
+msgid "created at"
+msgstr "creada el"
+
+#: .\tasks\models.py:11
+msgid "updated at"
+msgstr "actualizada el"
+
+#: .\tasks\models.py:12
+msgid "user"
+msgstr "usuario"
+
+#: .\tasks\models.py:19
+msgid "task"
+msgstr "tarea"
+
+#: .\tasks\models.py:20
+msgid "tasks"
+msgstr "tareas"
+
+#: .\tasks\templates\tasks\home.html:7
+#: .\tasks\templates\tasks\home.html:8
+msgid "Task List App"
+msgstr "Aplicación de Lista de Tareas"
+
+#: .\tasks\templates\tasks\home.html:23
+msgid "Task List"
+msgstr "Lista de Tareas"
+
+#: .\tasks\templates\tasks\home.html:9
+msgid "Organize your tasks and increase your productivity."
+msgstr "Organiza tus tareas y aumenta tu productividad."
+
+#: .\tasks\templates\tasks\home.html:12
+msgid "Start managing your tasks now!"
+msgstr "¡Comienza a gestionar tus tareas ahora!"
+
+#: .\tasks\templates\tasks\home.html:13
+msgid "View My Tasks"
+msgstr "Ver Mis Tareas"
+
+#: .\tasks\templates\tasks\home.html:15
+msgid "Register to start organizing your tasks."
+msgstr "Regístrate para empezar a organizar tus tareas."
+
+#: .\tasks\templates\tasks\tasks_confirm_delete.html:4
+#: .\tasks\templates\tasks\tasks_confirm_delete.html:7
+msgid "Delete Task"
+msgstr "Eliminar Tarea"
+
+#: .\tasks\templates\tasks\tasks_confirm_delete.html:8
+#, python-format
+msgid "Are you sure you want to delete the task \"%(task_title)s\"?"
+msgstr "¿Estás seguro de que quieres eliminar la tarea \"%(task_title)s\"?"
+
+#: .\tasks\templates\tasks\tasks_confirm_delete.html:11
+msgid "Confirm Deletion"
+msgstr "Confirmar Eliminación"
+
+#: .\tasks\templates\tasks\tasks_confirm_delete.html:12
+#: .\tasks\templates\tasks\tasks_form.html:37
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: .\tasks\templates\tasks\tasks_form.html:6
+#: .\tasks\templates\tasks\tasks_form.html:15
+msgid "Edit Task"
+msgstr "Editar Tarea"
+
+#: .\tasks\templates\tasks\tasks_form.html:8
+#: .\tasks\templates\tasks\tasks_form.html:17
+msgid "Create Task"
+msgstr "Crear Tarea"
+
+#: .\tasks\templates\tasks\tasks_form.html:36
+msgid "Save"
+msgstr "Guardar"
+
+#: .\tasks\templates\tasks\tasks_list.html:3
+#: .\tasks\templates\tasks\tasks_list.html:6
+msgid "My Tasks"
+msgstr "Mis Tareas"
+
+#: .\tasks\templates\tasks\tasks_list.html:8
+msgid "Add New Task"
+msgstr "Añadir Nueva Tarea"
+
+#: .\tasks\templates\tasks\tasks_list.html:12
+#: .\tasks\templates\tasks\tasks_list.html:16
+msgid "Search"
+msgstr "Buscar"
+
+#: .\tasks\templates\tasks\tasks_list.html:13
+msgid "Date from"
+msgstr "Fecha desde"
+
+#: .\tasks\templates\tasks\tasks_list.html:14
+msgid "Date to"
+msgstr "Fecha hasta"
+
+#: .\tasks\templates\tasks\tasks_list.html:29
+#, python-format
+msgid "Created: %(created_date)s"
+msgstr "Creada: %(created_date)s"
+
+#: .\tasks\templates\tasks\tasks_list.html:31
+#, python-format
+msgid "Last modified: %(updated_date)s"
+msgstr "Última modificación: %(updated_date)s"
+
+#: .\tasks\templates\tasks\tasks_list.html:32
+msgid "Edit"
+msgstr "Editar"
+
+#: .\tasks\templates\tasks\tasks_list.html:33
+msgid "Delete"
+msgstr "Eliminar"
+
+#: .\tasks\templates\tasks\tasks_list.html:37
+msgid "Mark as Incomplete"
+msgstr "Marcar como Incompleta"
+
+#: .\tasks\templates\tasks\tasks_list.html:37
+msgid "Mark as Complete"
+msgstr "Marcar como Completa"
+
+#: .\tasks\templates\tasks\tasks_list.html:46
+msgid "No tasks found."
+msgstr "No se encontraron tareas."
+
+#: .\tasks\views.py:14
+#, python-format
+msgid "User %(user)s accessed the home page"
+msgstr "El usuario %(user)s accedió a la página de inicio"
+
+#: .\tasks\views.py:34
+#, python-format
+msgid "User %(user)s viewed their task list"
+msgstr "El usuario %(user)s visualizó su lista de tareas"
+
+#: .\tasks\views.py:46
+#, python-format
+msgid "User %(user)s created a new task: %(task)s"
+msgstr "El usuario %(user)s creó una nueva tarea: %(task)s"
+
+#: .\tasks\views.py:47
+msgid "Task was created successfully."
+msgstr "La tarea se creó exitosamente."
+
+#: .\tasks\views.py:50
+#, python-format
+msgid "User %(user)s attempted to create a task with invalid data"
+msgstr "El usuario %(user)s intentó crear una tarea con datos inválidos"
+
+#: .\tasks\views.py:63
+#, python-format
+msgid "User %(user)s updated task: %(task)s"
+msgstr "El usuario %(user)s actualizó la tarea: %(task)s"
+
+#: .\tasks\views.py:64
+msgid "Task was updated successfully."
+msgstr "La tarea se actualizó exitosamente."
+
+#: .\tasks\views.py:68
+#, python-format
+msgid "User %(user)s attempted to update task %(task)s with invalid data"
+msgstr "El usuario %(user)s intentó actualizar la tarea %(task)s con datos inválidos"
+
+#: .\tasks\views.py:79
+#, python-format
+msgid "User %(user)s deleted task: %(task)s"
+msgstr "El usuario %(user)s eliminó la tarea: %(task)s"
+
+#: .\tasks\views.py:81
+msgid "Task was deleted successfully."
+msgstr "La tarea se eliminó exitosamente."
+
+#: .\tasks\views.py:91
+msgid "incomplete"
+msgstr "incompleta"
+
+#: .\tasks\views.py:92
+#, python-format
+msgid "User %(user)s marked task: %(task)s as %(status)s"
+msgstr "El usuario %(user)s marcó la tarea: %(task)s como %(status)s"
+
+#: .\tasks\views.py:93
+#, python-format
+msgid "Task \"%(task)s\" was marked as %(status)s."
+msgstr "La tarea \"%(task)s\" fue marcada como %(status)s."
+
+#: .\todo_list_project\settings.py:112
+msgid "English"
+msgstr "Inglés"
+
+#: .\todo_list_project\settings.py:113
+msgid "Spanish"
+msgstr "Español"
+
+#: .\authentication\views.py:21
+#, python-format
+msgid "New user created: %(username)s"
+msgstr "Nuevo usuario creado: %(username)s"
+
+#: .\authentication\views.py:30
+#, python-format
+msgid "User logged in: %(username)s"
+msgstr "Usuario ha iniciado sesión: %(username)s"
+
+#: .\authentication\views.py:36
+msgid "You have been successfully logged out."
+msgstr "Has cerrado sesión exitosamente."
+
+#: .\tasks\templates\tasks\home.html:17
+#: .\authentication\templates\authentication\login.html:4
+#: .\authentication\templates\authentication\login.html:9
+#: .\authentication\templates\authentication\login.html:25
+msgid "Log In"
+msgstr "Iniciar Sesión"
+
+#: .\authentication\templates\authentication\login.html:26
+msgid "Don't have an account?"
+msgstr "¿No tienes una cuenta?"
+
+#: .\tasks\templates\tasks\home.html:16
+#: .\authentication\templates\authentication\login.html:26
+#: .\authentication\templates\authentication\signup.html:4
+#: .\authentication\templates\authentication\signup.html:9
+#: .\authentication\templates\authentication\signup.html:25
+msgid "Sign Up"
+msgstr "Registrarse"
+
+#: .\authentication\templates\authentication\signup.html:26
+msgid "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
+
+#: .\tasks\templates\tasks\base.html:7
+#: .\tasks\templates\tasks\base.html:13
+msgid "Task Manager"
+msgstr "Gestor de Tareas"

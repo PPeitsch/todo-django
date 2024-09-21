@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Eliminar Tarea{% endblock %}
+{% block title %}{% trans "Delete Task" %}{% endblock %}
 
 {% block content %}
-<h1>Eliminar Tarea</h1>
-<p>¿Estás seguro de que quieres eliminar la tarea "{{ task.title }}"?</p>
+<h1>{% trans "Delete Task" %}</h1>
+<p>{% blocktrans with task_title=task.title %}Are you sure you want to delete the task "{{ task_title }}"?{% endblocktrans %}</p>
 <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
-    <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-danger">{% trans "Confirm Deletion" %}</button>
+    <a href="{% url 'task_list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 </form>
 {% endblock %}
