@@ -61,9 +61,14 @@ msgstr "tarea"
 msgid "tasks"
 msgstr "tareas"
 
-#: .\tasks\templates\tasks\home.html:4 .\tasks\templates\tasks\home.html:8
+#: .\tasks\templates\tasks\home.html:7
+#: .\tasks\templates\tasks\home.html:8
 msgid "Task List App"
 msgstr "Aplicación de Lista de Tareas"
+
+#: .\tasks\templates\tasks\home.html:23
+msgid "Task List"
+msgstr "Lista de Tareas"
 
 #: .\tasks\templates\tasks\home.html:9
 msgid "Organize your tasks and increase your productivity."
@@ -271,3 +276,8 @@ msgstr "Registrarse"
 #: .\authentication\templates\authentication\signup.html:26
 msgid "Already have an account?"
 msgstr "¿Ya tienes una cuenta?"
+
+#: .\tasks\templates\tasks\base.html:7
+#: .\tasks\templates\tasks\base.html:13
+msgid "Task Manager"
+msgstr "Gestor de Tareas"
