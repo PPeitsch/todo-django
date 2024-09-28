@@ -25,9 +25,9 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path('', home, name='home'),  # Añade esta línea
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
     path('tasks/', include('tasks.urls')),
-    prefix_default_language=False
+    prefix_default_language=True
 )
