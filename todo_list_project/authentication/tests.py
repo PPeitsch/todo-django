@@ -1,67 +1,82 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse, resolve
 from django.contrib.auth.models import User
 from django.test.utils import override_settings
 from django.conf import settings
+from django.utils.translation import activate
 
 
 class AuthenticationTests(TestCase):
     def setUp(self):
+        self.client = Client()
         self.user = User.objects.create_user(
             username='testuser',
             password='testpassword123'
         )
 
     def test_urls_resolve(self):
-        # Test that URLs are correctly configured
-        self.assertEqual(resolve('/auth/login/').view_name, 'login')
-        self.assertEqual(resolve('/auth/signup/').view_name, 'signup')
-        self.assertEqual(resolve('/auth/logout/').view_name, 'logout')
+        # Prueba para el idioma español
+        with self.settings(LANGUAGE_CODE='es'):
+            activate('es')
+            self.assertEqual(resolve('/es/auth/login/').view_name, 'login')
+            self.assertEqual(resolve('/es/auth/signup/').view_name, 'signup')
+            self.assertEqual(resolve('/es/auth/logout/').view_name, 'logout')
+
+        # Prueba para el idioma inglés
+        with self.settings(LANGUAGE_CODE='en'):
+            activate('en')
+            self.assertEqual(resolve('/en/auth/login/').view_name, 'login')
+            self.assertEqual(resolve('/en/auth/signup/').view_name, 'signup')
+            self.assertEqual(resolve('/en/auth/logout/').view_name, 'logout')
 
     @override_settings(LANGUAGE_CODE='en-us')
     def test_signup_view_en(self):
+        activate('en')
         self._test_signup_view()
 
     @override_settings(LANGUAGE_CODE='es')
     def test_signup_view_es(self):
+        activate('es')
         self._test_signup_view()
 
     def _test_signup_view(self):
+        self.client.logout()
+
         response = self.client.get(reverse('signup'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'authentication/signup.html')
 
-        # Test user registration
+        # Test successful registration
         response = self.client.post(reverse('signup'), {
             'username': 'newuser',
             'password1': 'newpassword123',
             'password2': 'newpassword123',
         })
-        self.assertIn(response.status_code, [200, 302])  # Either success (302) or form errors (200)
-        if response.status_code == 302:
-            self.assertTrue(User.objects.filter(username='newuser').exists())
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(User.objects.filter(username='newuser').exists())
 
-    @override_settings(LANGUAGE_CODE='en-us')
-    def test_login_view_en(self):
-        self._test_login_view()
+        # Test failed registration (username already exists)
+        response = self.client.post(reverse('signup'), {
+            'username': 'newuser',
+            'password1': 'anotherpassword123',
+            'password2': 'anotherpassword123',
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(User.objects.filter(username='newuser').count(), 1)
+        self.assertRedirects(response, reverse('home'))
 
-    @override_settings(LANGUAGE_CODE='es')
-    def test_login_view_es(self):
-        self._test_login_view()
-
-    def _test_login_view(self):
+    def test_login_view(self):
+        self.client.logout()
         response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'authentication/login.html')
 
-        # Test user login
         response = self.client.post(reverse('login'), {
             'username': 'testuser',
             'password': 'testpassword123',
         })
-        self.assertIn(response.status_code, [200, 302])  # Either success (302) or form errors (200)
-        if response.status_code == 302:
-            self.assertTrue('_auth_user_id' in self.client.session)
+        self.assertEqual(response.status_code, 302)  # Redirect after successful login
+        self.assertTrue('_auth_user_id' in self.client.session)
 
     def test_logout_view(self):
         self.client.login(username='testuser', password='testpassword123')
@@ -69,29 +84,39 @@ class AuthenticationTests(TestCase):
         self.assertEqual(response.status_code, 302)  # Redirect after logout
         self.assertFalse('_auth_user_id' in self.client.session)
 
-    @override_settings(LANGUAGE_CODE='en-us')
-    def test_login_failed_en(self):
-        self._test_login_failed()
+    def test_authenticated_user_redirect(self):
+        self.client.login(username='testuser', password='testpassword123')
+        response = self.client.get(reverse('login'))
+        self.assertRedirects(response, reverse('home'))
+        response = self.client.get(reverse('signup'))
+        self.assertRedirects(response, reverse('home'))
 
-    @override_settings(LANGUAGE_CODE='es')
-    def test_login_failed_es(self):
-        self._test_login_failed()
+    def test_unauthenticated_user_access(self):
+        self.client.logout()
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('signup'))
+        self.assertEqual(response.status_code, 200)
 
-    def _test_login_failed(self):
-        response = self.client.post(reverse('login'), {
-            'username': 'testuser',
-            'password': 'wrongpassword',
-        })
-        self.assertEqual(response.status_code, 200)  # Stay on the same page
-        self.assertFalse('_auth_user_id' in self.client.session)
-        self.assertTrue('form' in response.context and response.context['form'].errors)
+    def test_language_in_url(self):
+        for lang_code in ['en', 'es']:
+            activate(lang_code)
+            response = self.client.get(reverse('login'))
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(f'/{lang_code}/', response.request['PATH_INFO'])
+
+            response = self.client.get(reverse('signup'))
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(f'/{lang_code}/', response.request['PATH_INFO'])
 
     @override_settings(LANGUAGE_CODE='en-us')
     def test_signup_password_mismatch_en(self):
+        activate('en')
         self._test_signup_password_mismatch()
 
     @override_settings(LANGUAGE_CODE='es')
     def test_signup_password_mismatch_es(self):
+        activate('es')
         self._test_signup_password_mismatch()
 
     def _test_signup_password_mismatch(self):
@@ -104,8 +129,16 @@ class AuthenticationTests(TestCase):
         self.assertTrue('form' in response.context and response.context['form'].errors)
         self.assertFalse(User.objects.filter(username='newuser').exists())
 
-    def test_settings(self):
-        # Print out relevant settings for debugging
-        print(f"INSTALLED_APPS: {settings.INSTALLED_APPS}")
-        print(f"ROOT_URLCONF: {settings.ROOT_URLCONF}")
-        print(f"MIDDLEWARE: {settings.MIDDLEWARE}")
+    def test_settings_configuration(self):
+        self.assertIn('django.contrib.auth', settings.INSTALLED_APPS)
+        self.assertIn('authentication.apps.AuthenticationConfig', settings.INSTALLED_APPS)
+        self.assertEqual(settings.ROOT_URLCONF, 'todo_list_project.urls')
+        self.assertIn('django.middleware.security.SecurityMiddleware', settings.MIDDLEWARE)
+        self.assertIn('django.contrib.auth.middleware.AuthenticationMiddleware', settings.MIDDLEWARE)
+        self.assertIn('django.middleware.locale.LocaleMiddleware', settings.MIDDLEWARE)
+
+    def test_login_required_redirect(self):
+        self.client.logout()
+        response = self.client.get(reverse('task_list'))
+        expected_url = f'{reverse("login")}?next={reverse("task_list")}'
+        self.assertRedirects(response, expected_url)

@@ -17,6 +17,11 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'authentication/signup.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)
@@ -27,6 +32,11 @@ class SignUpView(CreateView):
 class CustomLoginView(LoginView):
     form_class = AuthenticationForm
     template_name = 'authentication/login.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         response = super().form_valid(form)
