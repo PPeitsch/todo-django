@@ -15,14 +15,14 @@ class AuthenticationTests(TestCase):
         )
 
     def test_urls_resolve(self):
-        # Prueba para el idioma español
+        # Spanish test
         with self.settings(LANGUAGE_CODE='es'):
             activate('es')
             self.assertEqual(resolve('/es/auth/login/').view_name, 'login')
             self.assertEqual(resolve('/es/auth/signup/').view_name, 'signup')
             self.assertEqual(resolve('/es/auth/logout/').view_name, 'logout')
 
-        # Prueba para el idioma inglés
+        # English test
         with self.settings(LANGUAGE_CODE='en'):
             activate('en')
             self.assertEqual(resolve('/en/auth/login/').view_name, 'login')
@@ -75,13 +75,13 @@ class AuthenticationTests(TestCase):
             'username': 'testuser',
             'password': 'testpassword123',
         })
-        self.assertEqual(response.status_code, 302)  # Redirect after successful login
+        self.assertEqual(response.status_code, 302)
         self.assertTrue('_auth_user_id' in self.client.session)
 
     def test_logout_view(self):
         self.client.login(username='testuser', password='testpassword123')
         response = self.client.get(reverse('logout'))
-        self.assertEqual(response.status_code, 302)  # Redirect after logout
+        self.assertEqual(response.status_code, 302)
         self.assertFalse('_auth_user_id' in self.client.session)
 
     def test_authenticated_user_redirect(self):
@@ -125,7 +125,7 @@ class AuthenticationTests(TestCase):
             'password1': 'password123',
             'password2': 'password321',
         })
-        self.assertEqual(response.status_code, 200)  # Stay on the same page
+        self.assertEqual(response.status_code, 200)
         self.assertTrue('form' in response.context and response.context['form'].errors)
         self.assertFalse(User.objects.filter(username='newuser').exists())
 
