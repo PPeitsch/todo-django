@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from .models import Task
 from django.test import override_settings
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, activate
 
 
 def ensure_unique_timestamps(func):
@@ -137,21 +137,6 @@ class TaskViewsTest(TestCase):
         self.client = Client()
         self.client.login(username='testuser', password='12345')
 
-    def create_task(self, title, description=''):
-        """
-        Helper method to create a task.
-
-        Args:
-            title (str): The title of the task.
-            description (str, optional): The description of the task. Defaults to ''.
-
-        Returns:
-            Task: The created task object.
-        """
-        task = Task.objects.create(title=title, description=description, user=self.user)
-        time.sleep(0.001)
-        return task
-
     @ensure_unique_timestamps
     def test_task_list_view(self):
         """
@@ -186,20 +171,25 @@ class TaskViewsTest(TestCase):
         new_task = Task.objects.get(title='New Task')
         self.assertEqual(new_task.user, self.user)
 
-    @ensure_unique_timestamps
-    def test_task_create_view_invalid_data(self):
+    def test_task_create_view_invalid_data_multilingual(self):
         """
-        Test the task creation view with invalid data.
+        Test the task creation view with invalid data in multiple languages.
 
-        This test verifies that the create view handles invalid data correctly.
+        This test verifies that the create view handles invalid data correctly
+        and displays appropriate error messages in both English and Spanish.
         """
-        response = self.client.post(reverse('task_create'), {
-            'title': '',
-            'description': 'This task has no title'
-        })
-        self.assertEqual(response.status_code, 200)
-        self.assertFalse(Task.objects.filter(description='This task has no title').exists())
-        self.assertContains(response, 'This field is required.')
+        for lang_code in ['en', 'es']:
+            with self.subTest(lang=lang_code):
+                with override_settings(LANGUAGE_CODE=lang_code):
+                    activate(lang_code)
+                    response = self.client.post(reverse('task_create'), {
+                        'title': '',
+                        'description': 'This task has no title'
+                    })
+                    self.assertEqual(response.status_code, 200)
+                    self.assertFalse(Task.objects.filter(description='This task has no title').exists())
+                    expected_error = _('This field is required.')
+                    self.assertContains(response, expected_error)
 
     @ensure_unique_timestamps
     def test_task_update_view(self):
@@ -297,6 +287,21 @@ class TaskViewsTest(TestCase):
         self.assertEqual(tasks[1].title, 'Task 2')
         self.assertEqual(tasks[2].title, 'Task 1')
 
+    def create_task(self, title, description=''):
+        """
+        Helper method to create a task.
+
+        Args:
+            title (str): The title of the task.
+            description (str, optional): The description of the task. Defaults to ''.
+
+        Returns:
+            Task: The created task object.
+        """
+        task = Task.objects.create(title=title, description=description, user=self.user)
+        time.sleep(0.001)
+        return task
+
 
 class TaskIntegrationTest(TestCase):
     """
@@ -326,15 +331,27 @@ class TaskIntegrationTest(TestCase):
         self.client = Client()
         self.client.login(username='testuser', password='12345')
 
-    @ensure_unique_timestamps
-    def test_task_lifecycle(self):
+    def test_task_lifecycle_multilingual(self):
         """
-        Test the complete lifecycle of a task.
+        Test the complete lifecycle of a task in multiple languages.
 
         This test simulates creating, updating, completing, and deleting a task,
-        verifying each step of the process.
+        verifying each step of the process in both English and Spanish.
         """
-        # Create a task
+        for lang_code in ['en', 'es']:
+            with self.subTest(lang=lang_code):
+                with override_settings(LANGUAGE_CODE=lang_code):
+                    activate(lang_code)
+                    self._run_task_lifecycle_test()
+
+    @ensure_unique_timestamps
+    def _run_task_lifecycle_test(self):
+        """
+        Run the task lifecycle test for a single language.
+
+        This method contains the core logic for testing the task lifecycle,
+        including creation, update, completion, and deletion.
+        """
         response = self.client.post(reverse('task_create'), {
             'title': 'Integration Test Task',
             'description': 'This is an integration test task'
@@ -342,11 +359,9 @@ class TaskIntegrationTest(TestCase):
         self.assertEqual(response.status_code, 302)
         task = Task.objects.get(title='Integration Test Task')
 
-        # Verify task in list view
         response = self.client.get(reverse('task_list'))
         self.assertContains(response, 'Integration Test Task')
 
-        # Update the task
         response = self.client.post(reverse('task_update', args=[task.id]), {
             'title': 'Updated Integration Test Task',
             'description': 'This task has been updated'
@@ -355,25 +370,23 @@ class TaskIntegrationTest(TestCase):
         task.refresh_from_db()
         self.assertEqual(task.title, 'Updated Integration Test Task')
 
-        # Toggle task completion
         response = self.client.post(reverse('task_toggle_complete', args=[task.id]))
         self.assertEqual(response.status_code, 302)
         task.refresh_from_db()
         self.assertTrue(task.completed)
 
-        # Verify completed task in list view
         response = self.client.get(reverse('task_list'))
         self.assertContains(response, 'Updated Integration Test Task')
-        self.assertContains(response, 'Mark as Incomplete')
+        self.assertContains(response, _('Mark as Incomplete'))
 
-        # Delete the task
         response = self.client.post(reverse('task_delete', args=[task.id]))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Task.objects.filter(id=task.id).exists())
 
-        # Verify task no longer in list view
         response = self.client.get(reverse('task_list'))
         self.assertNotContains(response, 'Updated Integration Test Task')
+
+        Task.objects.all().delete()
 
 
 class TaskAccessControlTest(TestCase):
