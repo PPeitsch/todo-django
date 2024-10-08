@@ -342,8 +342,10 @@ class TaskIntegrationTest(TestCase):
         verifying each step of the process in both English and Spanish.
         """
         for lang_code in ['en', 'es']:
-            with self.subTest(lang=lang_code):
-                with override_settings(LANGUAGE_CODE=lang_code):
+        for lang_code in ['en', 'es']:
+            with self.subTest(lang=lang_code), override_settings(LANGUAGE_CODE=lang_code):
+                activate(lang_code)
+                self._run_task_lifecycle_test()
                     activate(lang_code)
                     self._run_task_lifecycle_test()
 
