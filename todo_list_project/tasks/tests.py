@@ -178,17 +178,16 @@ class TaskViewsTest(BaseTaskTestCase):
         and displays appropriate error messages in both English and Spanish.
         """
         for lang_code in ['en', 'es']:
-            with self.subTest(lang=lang_code):
-                with override_settings(LANGUAGE_CODE=lang_code):
-                    activate(lang_code)
-                    response = self.client.post(reverse('task_create'), {
-                        'title': '',
-                        'description': 'This task has no title'
-                    })
-                    self.assertEqual(response.status_code, 200)
-                    self.assertFalse(Task.objects.filter(description='This task has no title').exists())
-                    expected_error = _('This field is required.')
-                    self.assertContains(response, expected_error)
+            with self.subTest(lang=lang_code), override_settings(LANGUAGE_CODE=lang_code):
+                activate(lang_code)
+                response = self.client.post(reverse('task_create'), {
+                    'title': '',
+                    'description': 'This task has no title'
+                })
+                self.assertEqual(response.status_code, 200)
+                self.assertFalse(Task.objects.filter(description='This task has no title').exists())
+                expected_error = _('This field is required.')
+                self.assertContains(response, expected_error)
 
     @ensure_unique_timestamps
     def test_task_update_view(self):
@@ -312,10 +311,9 @@ class TaskIntegrationTest(BaseTaskTestCase):
         verifying each step of the process in both English and Spanish.
         """
         for lang_code in ['en', 'es']:
-            with self.subTest(lang=lang_code):
-                with override_settings(LANGUAGE_CODE=lang_code):
-                    activate(lang_code)
-                    self._run_task_lifecycle_test()
+            with self.subTest(lang=lang_code), override_settings(LANGUAGE_CODE=lang_code):
+                activate(lang_code)
+                self._run_task_lifecycle_test()
 
     @ensure_unique_timestamps
     def _run_task_lifecycle_test(self):
