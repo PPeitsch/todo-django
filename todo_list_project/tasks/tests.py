@@ -179,8 +179,11 @@ class TaskViewsTest(TestCase):
         and displays appropriate error messages in both English and Spanish.
         """
         for lang_code in ['en', 'es']:
-            with self.subTest(lang=lang_code):
-                with override_settings(LANGUAGE_CODE=lang_code):
+            for lang_code in ['en', 'es']:
+                with self.subTest(lang=lang_code), override_settings(LANGUAGE_CODE=lang_code):
+                     activate(lang_code)
+                     response = self.client.post(reverse('task_create'), {
+                         'title': '',
                     activate(lang_code)
                     response = self.client.post(reverse('task_create'), {
                         'title': '',
