@@ -1,22 +1,17 @@
 # Django ToDo List App
 
-## Descripción
-Django ToDo List App es una aplicación web para la gestión de tareas personales.
+## Description
+Django ToDo List App is a web application for managing personal tasks. It provides a simple and efficient way to organize your to-do list.
 
-## Características Principales
-- Autenticación de usuarios (registro, inicio de sesión, cierre de sesión)
-- CRUD completo para tareas (Crear, Leer, Actualizar, Eliminar)
-- Marcado de tareas como completadas
-- Búsqueda y filtrado de tareas por contenido
-- Interfaz de usuario minimalista y funcional
-- Manejo de logs para seguimiento de acciones (pendiente)
+## Main Features
+- User authentication (registration, login, logout)
+- Complete CRUD for tasks (Create, Read, Update, Delete)
+- Mark tasks as completed
+- Search and filter tasks by content
+- Minimalist and functional user interface
+- Multilingual support (English and Spanish)
 
-## Pendiente de implementación
-- Manejo de logs para seguimiento de acciones.
-- Tests unitarios y de integración.
-- Imagen de Docker.
-
-## Estructura del Proyecto
+## Project Structure
 ```
 todo-django/
 ├── authentication/
@@ -39,65 +34,65 @@ todo-django/
 └── README.md
 ```
 
-## Requisitos
+## Requirements
 - Python 3.9+
 - Django 5.1
-- Otras dependencias listadas en `requirements.txt`
+- Other dependencies listed in `requirements.txt`
 
-## Configuración y Ejecución
+## Setup and Execution
 
-1. Clonar el repositorio:
+1. Clone the repository:
    ```
    git clone https://github.com/PPeitsch/todo-django.git
    cd todo-django
    ```
 
-2. Crear y activar un entorno virtual:
+2. Create and activate a virtual environment:
    ```
    python -m venv venv
-   source venv/bin/activate  # En Windows: venv\Scripts\activate
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Instalar las dependencias:
+3. Install dependencies:
    ```
    pip install -r requirements.txt
    ```
 
-4. Aplicar las migraciones:
+4. Apply migrations:
    ```
    python manage.py migrate
    ```
 
-5. Crear un superusuario (opcional):
+5. Create a superuser (optional):
    ```
    python manage.py createsuperuser
    ```
 
-6. Ejecutar el servidor de desarrollo:
+6. Run the development server:
    ```
    python manage.py runserver
    ```
 
-7. Acceder a la aplicación en `http://localhost:8000`
+7. Access the application at `http://localhost:8000`
 
-## Uso
-- Regístrate como nuevo usuario o inicia sesión si ya tienes una cuenta.
-- En la página principal, podrás ver tu lista de tareas.
-- Usa el botón "Añadir Nueva Tarea" para crear una nueva tarea.
-- Puedes editar, eliminar o marcar como completada cada tarea desde la lista.
-- Utiliza la barra de búsqueda para filtrar tareas por título o descripción.
+## Usage
+- Register as a new user or log in if you already have an account.
+- On the main page, you'll see your task list.
+- Use the "Add New Task" button to create a new task.
+- You can edit, delete, or mark each task as completed from the list.
+- Use the search bar to filter tasks by title or description.
 
-## Pruebas
-Para ejecutar las pruebas unitarias y de integración:
+## Testing
+To run unit and integration tests:
 ```
 python manage.py test
 ```
 
-## Contribuciones
-Las contribuciones son bienvenidas. Por favor, asegúrese de seguir las convenciones de codificación de PEP 8 y las mejores prácticas de Django.
+## Contributions
+Contributions are welcome. Please ensure you follow PEP 8 coding conventions and Django best practices.
 
-## Licencia
-Este proyecto está licenciado bajo la Licencia MIT. Consulte el archivo `LICENSE` para más detalles.
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
-## Contacto
-Para cualquier pregunta o sugerencia, por favor abra un issue en este repositorio.
+## Contact
+For any questions or suggestions, please open an issue in this repository.
