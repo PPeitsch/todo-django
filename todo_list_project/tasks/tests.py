@@ -37,12 +37,11 @@ def ensure_unique_timestamps(func):
     return wrapper
 
 
-class TaskModelTest(TestCase):
+class BaseTaskTestCase(TestCase):
     """
-    Test case for the Task model.
+    Base test case for Task-related tests.
 
-    This class contains tests to verify the functionality of the Task model,
-    including task creation, string representation, and ordering.
+    This class provides common setup and utility methods for Task tests.
     """
 
     @classmethod
@@ -69,6 +68,15 @@ class TaskModelTest(TestCase):
         task = Task.objects.create(title=title, description=description, user=self.user)
         time.sleep(0.001)
         return task
+
+
+class TaskModelTest(BaseTaskTestCase):
+    """
+    Test case for the Task model.
+
+    This class contains tests to verify the functionality of the Task model,
+    including task creation, string representation, and ordering.
+    """
 
     @ensure_unique_timestamps
     def test_task_creation(self):
@@ -109,23 +117,13 @@ class TaskModelTest(TestCase):
         self.assertEqual(tasks[1], task1)
 
 
-class TaskViewsTest(TestCase):
+class TaskViewsTest(BaseTaskTestCase):
     """
     Test case for the Task views.
 
     This class contains tests to verify the functionality of the Task views,
     including list view, creation, update, deletion, and search.
     """
-
-    @classmethod
-    def setUpTestData(cls):
-        """
-        Set up data for the whole TestCase.
-
-        This method is called once at the beginning of the test case to set up
-        non-modified data for all test methods.
-        """
-        cls.user = User.objects.create_user(username='testuser', password='12345')
 
     def setUp(self):
         """
@@ -134,6 +132,7 @@ class TaskViewsTest(TestCase):
         This method is called before each test method to set up any objects that
         may be modified by the test.
         """
+        super().setUp()
         self.client = Client()
         self.client.login(username='testuser', password='12345')
 
@@ -229,13 +228,11 @@ class TaskViewsTest(TestCase):
         """
         task = self.create_task('Toggle Task')
 
-        # Toggle to complete
         response = self.client.post(reverse('task_toggle_complete', args=[task.id]))
         self.assertEqual(response.status_code, 302)
         task.refresh_from_db()
         self.assertTrue(task.completed)
 
-        # Toggle back to incomplete
         self.client.post(reverse('task_toggle_complete', args=[task.id]))
         task.refresh_from_db()
         self.assertFalse(task.completed)
@@ -287,39 +284,14 @@ class TaskViewsTest(TestCase):
         self.assertEqual(tasks[1].title, 'Task 2')
         self.assertEqual(tasks[2].title, 'Task 1')
 
-    def create_task(self, title, description=''):
-        """
-        Helper method to create a task.
 
-        Args:
-            title (str): The title of the task.
-            description (str, optional): The description of the task. Defaults to ''.
-
-        Returns:
-            Task: The created task object.
-        """
-        task = Task.objects.create(title=title, description=description, user=self.user)
-        time.sleep(0.001)
-        return task
-
-
-class TaskIntegrationTest(TestCase):
+class TaskIntegrationTest(BaseTaskTestCase):
     """
     Integration test case for the Task functionality.
 
     This class contains tests to verify the integration of various Task operations,
     simulating a complete task lifecycle.
     """
-
-    @classmethod
-    def setUpTestData(cls):
-        """
-        Set up data for the whole TestCase.
-
-        This method is called once at the beginning of the test case to set up
-        non-modified data for all test methods.
-        """
-        cls.user = User.objects.create_user(username='testuser', password='12345')
 
     def setUp(self):
         """
@@ -328,6 +300,7 @@ class TaskIntegrationTest(TestCase):
         This method is called before each test method to set up any objects that
         may be modified by the test.
         """
+        super().setUp()
         self.client = Client()
         self.client.login(username='testuser', password='12345')
 
@@ -389,7 +362,7 @@ class TaskIntegrationTest(TestCase):
         Task.objects.all().delete()
 
 
-class TaskAccessControlTest(TestCase):
+class TaskAccessControlTest(BaseTaskTestCase):
     """
     Test case for Task access control.
 
@@ -405,7 +378,7 @@ class TaskAccessControlTest(TestCase):
         This method is called once at the beginning of the test case to set up
         non-modified data for all test methods.
         """
-        cls.user1 = User.objects.create_user(username='user1', password='12345')
+        super().setUpTestData()
         cls.user2 = User.objects.create_user(username='user2', password='67890')
 
     def setUp(self):
@@ -415,8 +388,9 @@ class TaskAccessControlTest(TestCase):
         This method is called before each test method to set up any objects that
         may be modified by the test.
         """
+        super().setUp()
         self.client = Client()
-        self.task = Task.objects.create(title='User1 Task', user=self.user1)
+        self.task = self.create_task('User1 Task')
 
     @ensure_unique_timestamps
     def test_user_can_only_see_own_tasks(self):
@@ -458,23 +432,13 @@ class TaskAccessControlTest(TestCase):
         self.assertTrue(Task.objects.filter(id=self.task.id).exists())
 
 
-class TaskInternationalizationTest(TestCase):
+class TaskInternationalizationTest(BaseTaskTestCase):
     """
     Test case for Task internationalization.
 
     This class contains tests to verify that the task-related pages and
     functionality work correctly with different language settings.
     """
-
-    @classmethod
-    def setUpTestData(cls):
-        """
-        Set up data for the whole TestCase.
-
-        This method is called once at the beginning of the test case to set up
-        non-modified data for all test methods.
-        """
-        cls.user = User.objects.create_user(username='testuser', password='12345')
 
     def setUp(self):
         """
@@ -483,6 +447,7 @@ class TaskInternationalizationTest(TestCase):
         This method is called before each test method to set up any objects that
         may be modified by the test.
         """
+        super().setUp()
         self.client = Client()
         self.client.login(username='testuser', password='12345')
 
